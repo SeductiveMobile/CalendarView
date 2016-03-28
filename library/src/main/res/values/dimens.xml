@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="date_text_size">20px</dimen>
+    <dimen name="month_text_size">17px</dimen>
+    <dimen name="week_day_text_size">12px</dimen>
+    <dimen name="today_label_text_size">8px</dimen>
+    <dimen name="date_text_padding">5dp</dimen>
+    <dimen name="date_item_height">47dp</dimen>
+</resources>

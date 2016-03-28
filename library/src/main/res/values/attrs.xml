@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CalendarView">
+        <attr name="Header_monthNameTextAppearance" format="reference"/>
+        <attr name="Header_dayNameTextAppearance" format="reference"/>
+        <attr name="Header_bgResID" format="reference"/>
+        <attr name="Header_bgColor" format="color"/>
+
+        <attr name="Week_bgColor" format="color"/>
+
+        <attr name="WeekDay_bgResource" format="reference"/>
+        <attr name="WeekDay_bgColorActive" format="color"/>
+        <attr name="WeekDay_bgColorInactive" format="color"/>
+        <attr name="WeekDay_bgColorInterval" format="color"/>
+        <attr name="WeekDay_textAppearance" format="reference"/>
+        <attr name="WeekDay_textColorInactive" format="color"/>
+
+        <attr name="OriginDay_bgResource" format="reference"/>
+        <attr name="OriginDay_textAppearance" format="reference"/>
+
+        <attr name="DestinationDay_bgResource" format="reference"/>
+        <attr name="DestinationDay_textAppearance" format="reference"/>
+
+        <attr name="BothDays_bgResource" format="reference"/>
+
+        <attr name="todayLabelText" format="string"/>
+    </declare-styleable>
+</resources>

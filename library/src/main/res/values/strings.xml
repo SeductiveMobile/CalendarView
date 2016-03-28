@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CalendarView</string>
+    <string name="mon">Пн</string>
+    <string name="tue">Вт</string>
+    <string name="wen">Ср</string>
+    <string name="thu">Чт</string>
+    <string name="fri">Пт</string>
+    <string name="sat">Сб</string>
+    <string name="sun">Вс</string>
+    <string name="label_today">Today</string>
+</resources>

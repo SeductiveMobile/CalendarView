@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/date_item_height"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <FrameLayout
+        android:id="@+id/mon_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/mon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tue_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/wen_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/wen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/thu_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/thu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fri_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/fri"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/sat_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/sat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/sun_parent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/sun"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:text="12" />
+    </FrameLayout>
+</LinearLayout>

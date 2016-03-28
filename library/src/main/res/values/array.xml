@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="months_names">
+        <item name="Jan">Январь</item>
+        <item name="Feb">Февраль</item>
+        <item name="Mar">Март</item>
+        <item name="Apr">Апрель</item>
+        <item name="May">Май</item>
+        <item name="Jun">Июнь</item>
+        <item name="Jul">Июль</item>
+        <item name="Aug">Август</item>
+        <item name="Sep">Сентябрь</item>
+        <item name="Oct">Октябрь</item>
+        <item name="Now">Ноябрь</item>
+        <item name="Dec">Декабрь</item>
+    </string-array>
+</resources>

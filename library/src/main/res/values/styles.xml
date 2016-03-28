@@ -1,0 +1,66 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CalendarView"/>
+
+    <style name="CalendarView.MonthNameTextAppearance">
+        <item name="android:textColor">@color/calendar_month_name</item>
+        <item name="android:textSize">@dimen/month_text_size</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="CalendarView.MonthDayNameTextAppearance">
+        <item name="android:textColor">@color/calendar_days_name</item>
+        <item name="android:textSize">@dimen/week_day_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CalendarView.WeekDayTextAppearance">
+        <item name="android:textColor">@color/calendar_numbers_chosen</item>
+        <item name="android:textSize">@dimen/date_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CalendarView.TodayTextAppearance">
+        <item name="android:textColor">@color/calendar_numbers_chosen</item>
+        <item name="android:textSize">@dimen/date_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CalendarView.OriginTextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/date_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="CalendarView.DestinationTextAppearance">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/date_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+</resources>
