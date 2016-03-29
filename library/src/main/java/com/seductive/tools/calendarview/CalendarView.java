@@ -5,8 +5,9 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.AnimRes;
-import android.support.annotation.NonNull;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,20 +59,145 @@ public class CalendarView extends RecyclerView {
 
     public void setHeaderStyle(HeaderStyle headerStyle) {
         HeaderStyle cachedStyle = mAdapter.getHeaderStyle();
-        if(headerStyle == null) {
+        if(cachedStyle == null) {
             mAdapter.setHeaderStyle(headerStyle);
         } else {
             if(headerStyle.bgColor != HeaderStyle.NONE_VALUE){
-
+                cachedStyle.bgColor = headerStyle.bgColor;
+            }
+            if(headerStyle.dayNameTextAllCaps != HeaderStyle.NONE_VALUE){
+                cachedStyle.dayNameTextAllCaps = headerStyle.dayNameTextAllCaps;
+            }
+            if(headerStyle.bgResID != HeaderStyle.NONE_VALUE){
+                cachedStyle.bgResID = headerStyle.bgResID;
+            }
+            if(headerStyle.dayNameTextColor != HeaderStyle.NONE_VALUE){
+                cachedStyle.dayNameTextColor = headerStyle.dayNameTextColor;
+            }
+            if(headerStyle.dayNameTextGravity != HeaderStyle.NONE_VALUE){
+                cachedStyle.dayNameTextGravity = headerStyle.dayNameTextGravity;
+            }
+            if(headerStyle.dayNameTextSize != HeaderStyle.NONE_VALUE){
+                cachedStyle.dayNameTextSize = headerStyle.dayNameTextSize;
+            }
+            if(headerStyle.dayNameTextStyle != HeaderStyle.NONE_VALUE){
+                cachedStyle.dayNameTextStyle = headerStyle.dayNameTextStyle;
+            }
+            if(headerStyle.dayNameTextTypeface != HeaderStyle.NONE_VALUE){
+                cachedStyle.dayNameTextTypeface = headerStyle.dayNameTextTypeface;
+            }
+            if(headerStyle.monthNameTextColor != HeaderStyle.NONE_VALUE){
+                cachedStyle.monthNameTextColor = headerStyle.monthNameTextColor;
+            }
+            if(headerStyle.monthNameTextGravity != HeaderStyle.NONE_VALUE){
+                cachedStyle.monthNameTextGravity = headerStyle.monthNameTextGravity;
+            }
+            if(headerStyle.monthNameTextSize != HeaderStyle.NONE_VALUE){
+                cachedStyle.monthNameTextSize = headerStyle.monthNameTextSize;
+            }
+            if(headerStyle.monthNameTextStyle != HeaderStyle.NONE_VALUE){
+                cachedStyle.monthNameTextStyle = headerStyle.monthNameTextStyle;
+            }
+            if(headerStyle.monthNameTextTypeface != HeaderStyle.NONE_VALUE){
+                cachedStyle.monthNameTextTypeface = headerStyle.monthNameTextTypeface;
             }
         }
     }
 
-    mAdapter.setWeekDayDestinationStyle(weekDayDestinationStyle);
-    mAdapter.setWeekDayOriginStyle(weekDayOriginStyle);
-    mAdapter.setWeekDayStyle(weekDayStyle);
-    mAdapter.setWeekStyle(weekStyle);
-    mAdapter.setTodayStyle(todayStyle);
+    public void setWeekDayStyle(WeekDayStyle style){
+        WeekDayStyle cachedStyle = mAdapter.getWeekDayStyle();
+        if(cachedStyle == null){
+            mAdapter.setWeekDayStyle(style);
+        } else {
+            copyWeekDayStyle(cachedStyle, style);
+        }
+    }
+
+    private void copyWeekDayStyle(WeekDayStyle target, WeekDayStyle source) {
+        if(source.textColorInactive != WeekDayStyle.NONE_VALUE){
+            target.textColorInactive = source.textColorInactive;
+        }
+        if(source.textAllCaps != WeekDayStyle.NONE_VALUE){
+            target.textAllCaps = source.textAllCaps;
+        }
+        if(source.bgColorActive != WeekDayStyle.NONE_VALUE){
+            target.bgColorActive = source.bgColorActive;
+        }
+        if(source.bgColorInactive != WeekDayStyle.NONE_VALUE){
+            target.bgColorInactive = source.bgColorInactive;
+        }
+        if(source.bgColorInterval != WeekDayStyle.NONE_VALUE){
+            target.bgColorInterval = source.bgColorInterval;
+        }
+        if(source.bgResource != WeekDayStyle.NONE_VALUE){
+            target.bgResource = source.bgResource;
+        }
+        if(source.textColorActive != WeekDayStyle.NONE_VALUE){
+            target.textColorActive = source.textColorActive;
+        }
+        if(source.textGravity != WeekDayStyle.NONE_VALUE){
+            target.textGravity = source.textGravity;
+        }
+        if(source.textSize != WeekDayStyle.NONE_VALUE){
+            target.textSize = source.textSize;
+        }
+        if(source.textStyle != WeekDayStyle.NONE_VALUE){
+            target.textStyle = source.textStyle;
+        }
+        if(source.textTypeface != WeekDayStyle.NONE_VALUE){
+            target.textTypeface = source.textTypeface;
+        }
+    }
+
+    public void setWeekDayDestinationStyle(WeekDayStyle style){
+        WeekDayStyle cachedStyle = mAdapter.getWeekDayDestinationStyle();
+        if(cachedStyle == null){
+            mAdapter.setWeekDayDestinationStyle(style);
+        } else {
+            copyWeekDayStyle(cachedStyle, style);
+        }
+    }
+
+    public void setWeekDayOriginStyle(WeekDayStyle style){
+        WeekDayStyle cachedStyle = mAdapter.getWeekDayOriginStyle();
+        if(cachedStyle == null){
+            mAdapter.setWeekDayOriginStyle(style);
+        } else {
+            copyWeekDayStyle(cachedStyle, style);
+        }
+    }
+
+    public void setWeekStyle(WeekStyle style){
+        WeekStyle cachedStyle = mAdapter.getWeekStyle();
+        if(cachedStyle == null){
+            mAdapter.setWeekStyle(style);
+        } else {
+            if(style.bgColor != WeekStyle.NONE_VALUE){
+                cachedStyle.bgColor = style.bgColor;
+            }
+        }
+    }
+
+    public void setTodayStyle(WeekDayStyle style){
+        WeekDayStyle cachedStyle = mAdapter.getTodayStyle();
+        if(cachedStyle == null){
+            mAdapter.setTodayStyle(style);
+        } else {
+            copyWeekDayStyle(cachedStyle, style);
+        }
+    }
+
+    public void setBothDatesBgResource(@DrawableRes int resId){
+        mAdapter.setBothDatesBgResource(resId);
+    }
+
+    public void setTodayLabelText(@StringRes int resId){
+        setTodayLabelText(getResources().getString(resId));
+    }
+
+    public void setTodayLabelText(String text){
+        mAdapter.setTodayLabelText(text);
+    }
 
     private void init(Context context, AttributeSet attributes) {
         setAdapter(mAdapter = new CalendarAdapter(context));
@@ -362,11 +488,11 @@ public class CalendarView extends RecyclerView {
             }
         }
         setHeaderStyle(headerStyle);
-        mAdapter.setWeekDayDestinationStyle(weekDayDestinationStyle);
-        mAdapter.setWeekDayOriginStyle(weekDayOriginStyle);
-        mAdapter.setWeekDayStyle(weekDayStyle);
-        mAdapter.setWeekStyle(weekStyle);
-        mAdapter.setTodayStyle(todayStyle);
+        setWeekDayDestinationStyle(weekDayDestinationStyle);
+        setWeekDayOriginStyle(weekDayOriginStyle);
+        setWeekDayStyle(weekDayStyle);
+        setWeekStyle(weekStyle);
+        setTodayStyle(todayStyle);
     }
 
     private int getScrolledPosition(DateTime date) {

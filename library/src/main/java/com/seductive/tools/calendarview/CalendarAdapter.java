@@ -288,7 +288,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         tv.setGravity(style.textGravity);
         tv.setTypeface(Typeface.defaultFromStyle(style.textTypeface), style.textStyle);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, style.textSize);
-        tv.setAllCaps(style.textAllCaps);
+        tv.setAllCaps(style.textAllCaps == 1);
         if(active){
             tv.setTextColor(style.textColorActive);
         } else {
@@ -301,7 +301,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         textView.setGravity(style.dayNameTextGravity);
         textView.setTypeface(Typeface.defaultFromStyle(style.dayNameTextTypeface), style.dayNameTextStyle);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, style.dayNameTextSize);
-        textView.setAllCaps(style.dayNameTextAllCaps);
+        textView.setAllCaps(style.dayNameTextAllCaps == 1);
     }
 
     private void setItemInvisible(TextView tv) {

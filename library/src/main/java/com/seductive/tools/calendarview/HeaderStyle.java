@@ -16,7 +16,7 @@ public final class HeaderStyle {
     protected int dayNameTextStyle = NONE_VALUE;
     protected int dayNameTextGravity = NONE_VALUE;
     protected int dayNameTextTypeface = NONE_VALUE;
-    protected boolean dayNameTextAllCaps;
+    protected int dayNameTextAllCaps = NONE_VALUE;
 
     public HeaderStyle setMonthNameTextTypeface(int monthNameTextTypeface) {
         this.monthNameTextTypeface = monthNameTextTypeface;
@@ -79,7 +79,7 @@ public final class HeaderStyle {
     }
 
     public HeaderStyle setDayNameTextAllCaps(boolean dayNameTextAllCaps) {
-        this.dayNameTextAllCaps = dayNameTextAllCaps;
+        this.dayNameTextAllCaps = dayNameTextAllCaps ? 1 : 0;
         return this;
     }
 }

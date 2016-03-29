@@ -8,7 +8,7 @@ public class WeekDayStyle {
     protected int textStyle = NONE_VALUE;
     protected int textGravity = NONE_VALUE;
     protected int textTypeface = NONE_VALUE;
-    protected boolean textAllCaps;
+    protected int textAllCaps = NONE_VALUE;
 
     protected int bgColorActive = NONE_VALUE;
     protected int bgColorInactive = NONE_VALUE;
@@ -61,7 +61,7 @@ public class WeekDayStyle {
     }
 
     public WeekDayStyle setTextAllCaps(boolean textAllCaps) {
-        this.textAllCaps = textAllCaps;
+        this.textAllCaps = textAllCaps ? 1 : 0;
         return this;
     }
 
