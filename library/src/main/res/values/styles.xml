@@ -46,7 +46,7 @@
     </style>
 
     <style name="CalendarView.OriginTextAppearance">
-        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/calendar_numbers_chosen</item>
         <item name="android:textSize">@dimen/date_text_size</item>
         <item name="android:gravity">center</item>
         <item name="android:typeface">monospace</item>
@@ -55,7 +55,7 @@
     </style>
 
     <style name="CalendarView.DestinationTextAppearance">
-        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/calendar_numbers_chosen</item>
         <item name="android:textSize">@dimen/date_text_size</item>
         <item name="android:gravity">center</item>
         <item name="android:typeface">monospace</item>

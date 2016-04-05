@@ -3,6 +3,7 @@ package com.seductive.tools.sample;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
@@ -15,28 +16,63 @@ import org.joda.time.DateTime;
 public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.DateClickListener {
 
     private static final int PERIOD_MONTHS = 12;
-    private static final String DATE_TO = "date_to";
-    private static final String DATE_BACK = "date_back";
+    private static final String DATE_ORIGIN = "date_origin";
+    private static final String DATE_DESTINATION = "date_destination";
+    private static final String DATE_TYPE = "date_type";
 
-    public static Intent createIntent(Context context){
-        return createIntent(context, null, null);
+    public enum DateType {
+        SINGLE, PERIOD
     }
 
-    public static Intent createIntent(Context context, DateTime dateTo){
-        return createIntent(context, dateTo, null);
+    public static Intent createIntent(Context context, DateType type){
+        return createIntent(context, null, null, type);
     }
 
-    public static Intent createIntent(Context context, DateTime dateTo, DateTime dateBack){
+    public static Intent createIntent(Context context, DateTime dateOrigin){
+        return createIntent(context, dateOrigin, null, DateType.SINGLE);
+    }
+
+    public static Intent createIntent(Context context, DateTime dateOrigin, DateTime dateDestination){
+        return createIntent(context, dateOrigin, dateDestination, DateType.PERIOD);
+    }
+
+    public static Intent createIntent(Context context, DateTime dateOrigin, DateTime dateDestination, DateType type){
         Intent intent = new Intent(context, CalendarActivity.class);
-        if(dateTo != null)
-            intent.putExtra(DATE_TO, dateTo);
-        if(dateBack != null)
-            intent.putExtra(DATE_BACK, dateBack);
+        if(dateOrigin != null)
+            intent.putExtra(DATE_ORIGIN, dateOrigin);
+        if(dateDestination != null)
+            intent.putExtra(DATE_DESTINATION, dateDestination);
+        intent.putExtra(DATE_TYPE, type.ordinal());
         return intent;
     }
 
-    private DateTime dateTo;
-    private DateTime dateBack;
+    public static DateType readDateType(Intent resultIntent){
+        return DateType.values()[resultIntent.getIntExtra(DATE_TYPE, DateType.SINGLE.ordinal())];
+    }
+
+    public static DateTime readDate(Intent resultIntent){
+        if(resultIntent.hasExtra(DATE_ORIGIN)) {
+            return (DateTime) resultIntent.getSerializableExtra(DATE_ORIGIN);
+        }
+        return null;
+    }
+
+    public static Pair<DateTime, DateTime> readPeriod(Intent resultIntent){
+        DateTime origin = null;
+        if(resultIntent.hasExtra(DATE_ORIGIN)) {
+            origin = (DateTime) resultIntent.getSerializableExtra(DATE_ORIGIN);
+        }
+        DateTime destination = null;
+        if(resultIntent.hasExtra(DATE_DESTINATION)) {
+            destination = (DateTime) resultIntent.getSerializableExtra(DATE_DESTINATION);
+        }
+        return new Pair<>(origin, destination);
+    }
+
+    private DateTime dateOrigin;
+    private DateTime dateDestination;
+    private DateType dateType;
+    private CalendarView calendarView;
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
@@ -56,91 +92,63 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         setContentView(R.layout.activity_calendar);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            if(extras.containsKey(DATE_TO))
-                dateTo = (DateTime) extras.getSerializable(DATE_TO);
-            if(extras.containsKey(DATE_BACK))
-                dateBack = (DateTime) extras.getSerializable(DATE_BACK);
+            if(extras.containsKey(DATE_ORIGIN))
+                dateOrigin = (DateTime) extras.getSerializable(DATE_ORIGIN);
+            if(extras.containsKey(DATE_DESTINATION))
+                dateDestination = (DateTime) extras.getSerializable(DATE_DESTINATION);
+            dateType = DateType.values()[extras.getInt(DATE_TYPE, DateType.PERIOD.ordinal())];
         }
         initUIViews();
     }
 
     private void initUIViews() {
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_container);
-        calendarView.setWeekAnimation(android.R.anim.slide_in_left);
+        calendarView = (CalendarView) findViewById(R.id.calendar_container);
+//        calendarView.setWeekAnimation(android.R.anim.slide_in_left);
         calendarView.setPeriod(PERIOD_MONTHS);
         calendarView.addOnScrollListener(scrollListener);
-        calendarView.setDates(dateTo, dateBack);
-        calendarView.scrollTo(dateTo);
+        calendarView.setDates(dateOrigin, dateDestination);
+        calendarView.scrollTo(dateOrigin);
         calendarView.setDateClickListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        finishWithResults();
+        composeResult(RESULT_CANCELED);
     }
 
     @Override
     public void onDateClick(DateTime date) {
-        if (clickedItem.equals(IntentConstants.DATE_TYPE_TO)) {
-            if (!isChecked) {
-                setDateTo(date, FINISH);
-            } else {
-                if (dateTo == null) {
-                    if (dateBack == null) {
-                        setDateTo(date, NOT_FINISH);
-                    } else {
-                        if (!CalendarUtils.datesEquals(date, dateBack) && date.compareTo(dateBack) > 0) {
-                            dateBack = null;
-                            setDateTo(date, NOT_FINISH);
-                        } else {
-                            setDateTo(date, NOT_FINISH);
-                        }
-                    }
-
-                } else if (dateBack == null) {
-                    if (!CalendarUtils.datesEquals(date, dateTo) && date.compareTo(dateTo) < 0) {
-                        dateBack = null;
-                        setDateTo(date, NOT_FINISH);
-                    } else {
-                        setDateBack(date, FINISH);
-                    }
+        switch (dateType){
+            case SINGLE:
+                dateOrigin = date;
+                calendarView.setDates(date, null);
+                break;
+            case PERIOD:
+                if(dateOrigin != null){
+                    dateOrigin = date;
                 } else {
-                    if (!CalendarUtils.datesEquals(date, dateTo) && date.compareTo(dateTo) < 0) {
-                        dateBack = null;
-                        setDateTo(date, NOT_FINISH);
-                    } else {
-                        setDateBack(date, FINISH);
-                    }
                 }
-            }
-        } else if (clickedItem.equals(IntentConstants.DATE_TYPE_BACK)) {
-            if (dateTo == null) {
-                setDateTo(date, NOT_FINISH);
-            } else {
-                if (dateBack == null) {
-                    if (!CalendarUtils.datesEquals(date, dateTo) && date.compareTo(dateTo) < 0) {
-                        dateBack = null;
-                        setDateTo(date, NOT_FINISH);
-                    } else {
-                        setDateBack(date, FINISH);
-                    }
-                } else {
-                    if (!CalendarUtils.datesEquals(date, dateTo) && date.compareTo(dateTo) < 0) {
-                        dateBack = null;
-                        setDateTo(date, NOT_FINISH);
-                    } else {
-                        setDateBack(date, FINISH);
-                    }
-                }
-            }
+                break;
         }
     }
 
-    private void finishWithResults() {
+    @Override
+    public void onDateLongClick(DateTime date) {
+
+    }
+
+    private void composeResult(int resultStatus) {
         Intent intent = new Intent();
-        intent.putExtra(DATE_TO, dateTo);
-        intent.putExtra(DATE_BACK, dateBack);
-        setResult(RESULT_OK, intent);
+        if(resultStatus == RESULT_OK) {
+            if(dateOrigin != null) {
+                intent.putExtra(DATE_ORIGIN, dateOrigin);
+            }
+            if(dateDestination != null) {
+                intent.putExtra(DATE_DESTINATION, dateDestination);
+            }
+        }
+        intent.putExtra(DATE_TYPE, dateType.ordinal());
+        setResult(resultStatus, intent);
         finish();
     }
 }

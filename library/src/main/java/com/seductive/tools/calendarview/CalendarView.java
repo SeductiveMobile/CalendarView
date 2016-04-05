@@ -53,60 +53,60 @@ public class CalendarView extends RecyclerView {
         mAdapter.notifyDataSetChanged();
     }
 
-    public void setWeekAnimation(@AnimRes int animation){
+    public void setWeekAnimation(@AnimRes int animation) {
         mAdapter.setRowAnimation(animation);
     }
 
     public void setHeaderStyle(HeaderStyle headerStyle) {
         HeaderStyle cachedStyle = mAdapter.getHeaderStyle();
-        if(cachedStyle == null) {
+        if (cachedStyle == null) {
             mAdapter.setHeaderStyle(headerStyle);
         } else {
-            if(headerStyle.bgColor != HeaderStyle.NONE_VALUE){
+            if (headerStyle.bgColor != HeaderStyle.NONE_VALUE) {
                 cachedStyle.bgColor = headerStyle.bgColor;
             }
-            if(headerStyle.dayNameTextAllCaps != HeaderStyle.NONE_VALUE){
+            if (headerStyle.dayNameTextAllCaps != HeaderStyle.NONE_VALUE) {
                 cachedStyle.dayNameTextAllCaps = headerStyle.dayNameTextAllCaps;
             }
-            if(headerStyle.bgResID != HeaderStyle.NONE_VALUE){
+            if (headerStyle.bgResID != HeaderStyle.NONE_VALUE) {
                 cachedStyle.bgResID = headerStyle.bgResID;
             }
-            if(headerStyle.dayNameTextColor != HeaderStyle.NONE_VALUE){
+            if (headerStyle.dayNameTextColor != HeaderStyle.NONE_VALUE) {
                 cachedStyle.dayNameTextColor = headerStyle.dayNameTextColor;
             }
-            if(headerStyle.dayNameTextGravity != HeaderStyle.NONE_VALUE){
+            if (headerStyle.dayNameTextGravity != HeaderStyle.NONE_VALUE) {
                 cachedStyle.dayNameTextGravity = headerStyle.dayNameTextGravity;
             }
-            if(headerStyle.dayNameTextSize != HeaderStyle.NONE_VALUE){
+            if (headerStyle.dayNameTextSize != HeaderStyle.NONE_VALUE) {
                 cachedStyle.dayNameTextSize = headerStyle.dayNameTextSize;
             }
-            if(headerStyle.dayNameTextStyle != HeaderStyle.NONE_VALUE){
+            if (headerStyle.dayNameTextStyle != HeaderStyle.NONE_VALUE) {
                 cachedStyle.dayNameTextStyle = headerStyle.dayNameTextStyle;
             }
-            if(headerStyle.dayNameTextTypeface != HeaderStyle.NONE_VALUE){
+            if (headerStyle.dayNameTextTypeface != HeaderStyle.NONE_VALUE) {
                 cachedStyle.dayNameTextTypeface = headerStyle.dayNameTextTypeface;
             }
-            if(headerStyle.monthNameTextColor != HeaderStyle.NONE_VALUE){
+            if (headerStyle.monthNameTextColor != HeaderStyle.NONE_VALUE) {
                 cachedStyle.monthNameTextColor = headerStyle.monthNameTextColor;
             }
-            if(headerStyle.monthNameTextGravity != HeaderStyle.NONE_VALUE){
+            if (headerStyle.monthNameTextGravity != HeaderStyle.NONE_VALUE) {
                 cachedStyle.monthNameTextGravity = headerStyle.monthNameTextGravity;
             }
-            if(headerStyle.monthNameTextSize != HeaderStyle.NONE_VALUE){
+            if (headerStyle.monthNameTextSize != HeaderStyle.NONE_VALUE) {
                 cachedStyle.monthNameTextSize = headerStyle.monthNameTextSize;
             }
-            if(headerStyle.monthNameTextStyle != HeaderStyle.NONE_VALUE){
+            if (headerStyle.monthNameTextStyle != HeaderStyle.NONE_VALUE) {
                 cachedStyle.monthNameTextStyle = headerStyle.monthNameTextStyle;
             }
-            if(headerStyle.monthNameTextTypeface != HeaderStyle.NONE_VALUE){
+            if (headerStyle.monthNameTextTypeface != HeaderStyle.NONE_VALUE) {
                 cachedStyle.monthNameTextTypeface = headerStyle.monthNameTextTypeface;
             }
         }
     }
 
-    public void setWeekDayStyle(WeekDayStyle style){
+    public void setWeekDayStyle(WeekDayStyle style) {
         WeekDayStyle cachedStyle = mAdapter.getWeekDayStyle();
-        if(cachedStyle == null){
+        if (cachedStyle == null) {
             mAdapter.setWeekDayStyle(style);
         } else {
             copyWeekDayStyle(cachedStyle, style);
@@ -114,88 +114,88 @@ public class CalendarView extends RecyclerView {
     }
 
     private void copyWeekDayStyle(WeekDayStyle target, WeekDayStyle source) {
-        if(source.textColorInactive != WeekDayStyle.NONE_VALUE){
+        if (source.textColorInactive != WeekDayStyle.NONE_VALUE) {
             target.textColorInactive = source.textColorInactive;
         }
-        if(source.textAllCaps != WeekDayStyle.NONE_VALUE){
+        if (source.textAllCaps != WeekDayStyle.NONE_VALUE) {
             target.textAllCaps = source.textAllCaps;
         }
-        if(source.bgColorActive != WeekDayStyle.NONE_VALUE){
+        if (source.bgColorActive != WeekDayStyle.NONE_VALUE) {
             target.bgColorActive = source.bgColorActive;
         }
-        if(source.bgColorInactive != WeekDayStyle.NONE_VALUE){
+        if (source.bgColorInactive != WeekDayStyle.NONE_VALUE) {
             target.bgColorInactive = source.bgColorInactive;
         }
-        if(source.bgColorInterval != WeekDayStyle.NONE_VALUE){
+        if (source.bgColorInterval != WeekDayStyle.NONE_VALUE) {
             target.bgColorInterval = source.bgColorInterval;
         }
-        if(source.bgResource != WeekDayStyle.NONE_VALUE){
+        if (source.bgResource != WeekDayStyle.NONE_VALUE) {
             target.bgResource = source.bgResource;
         }
-        if(source.textColorActive != WeekDayStyle.NONE_VALUE){
+        if (source.textColorActive != WeekDayStyle.NONE_VALUE) {
             target.textColorActive = source.textColorActive;
         }
-        if(source.textGravity != WeekDayStyle.NONE_VALUE){
+        if (source.textGravity != WeekDayStyle.NONE_VALUE) {
             target.textGravity = source.textGravity;
         }
-        if(source.textSize != WeekDayStyle.NONE_VALUE){
+        if (source.textSize != WeekDayStyle.NONE_VALUE) {
             target.textSize = source.textSize;
         }
-        if(source.textStyle != WeekDayStyle.NONE_VALUE){
+        if (source.textStyle != WeekDayStyle.NONE_VALUE) {
             target.textStyle = source.textStyle;
         }
-        if(source.textTypeface != WeekDayStyle.NONE_VALUE){
+        if (source.textTypeface != WeekDayStyle.NONE_VALUE) {
             target.textTypeface = source.textTypeface;
         }
     }
 
-    public void setWeekDayDestinationStyle(WeekDayStyle style){
+    public void setWeekDayDestinationStyle(WeekDayStyle style) {
         WeekDayStyle cachedStyle = mAdapter.getWeekDayDestinationStyle();
-        if(cachedStyle == null){
+        if (cachedStyle == null) {
             mAdapter.setWeekDayDestinationStyle(style);
         } else {
             copyWeekDayStyle(cachedStyle, style);
         }
     }
 
-    public void setWeekDayOriginStyle(WeekDayStyle style){
+    public void setWeekDayOriginStyle(WeekDayStyle style) {
         WeekDayStyle cachedStyle = mAdapter.getWeekDayOriginStyle();
-        if(cachedStyle == null){
+        if (cachedStyle == null) {
             mAdapter.setWeekDayOriginStyle(style);
         } else {
             copyWeekDayStyle(cachedStyle, style);
         }
     }
 
-    public void setWeekStyle(WeekStyle style){
+    public void setWeekStyle(WeekStyle style) {
         WeekStyle cachedStyle = mAdapter.getWeekStyle();
-        if(cachedStyle == null){
+        if (cachedStyle == null) {
             mAdapter.setWeekStyle(style);
         } else {
-            if(style.bgColor != WeekStyle.NONE_VALUE){
+            if (style.bgColor != WeekStyle.NONE_VALUE) {
                 cachedStyle.bgColor = style.bgColor;
             }
         }
     }
 
-    public void setTodayStyle(WeekDayStyle style){
+    public void setTodayStyle(WeekDayStyle style) {
         WeekDayStyle cachedStyle = mAdapter.getTodayStyle();
-        if(cachedStyle == null){
+        if (cachedStyle == null) {
             mAdapter.setTodayStyle(style);
         } else {
             copyWeekDayStyle(cachedStyle, style);
         }
     }
 
-    public void setBothDatesBgResource(@DrawableRes int resId){
+    public void setBothDatesBgResource(@DrawableRes int resId) {
         mAdapter.setBothDatesBgResource(resId);
     }
 
-    public void setTodayLabelText(@StringRes int resId){
+    public void setTodayLabelText(@StringRes int resId) {
         setTodayLabelText(getResources().getString(resId));
     }
 
-    public void setTodayLabelText(String text){
+    public void setTodayLabelText(String text) {
         mAdapter.setTodayLabelText(text);
     }
 
@@ -477,7 +477,7 @@ public class CalendarView extends RecyclerView {
 
                 mAdapter.setBothDatesBgResource(typedArray.getResourceId(R.styleable.CalendarView_BothDays_bgResource, android.R.color.holo_blue_dark));
                 String todayLabel = typedArray.getString(R.styleable.CalendarView_todayLabelText);
-                if(todayLabel == null){
+                if (todayLabel == null) {
                     todayLabel = getResources().getString(R.string.label_today);
                 }
                 mAdapter.setTodayLabelText(todayLabel);
@@ -486,6 +486,240 @@ public class CalendarView extends RecyclerView {
             } finally {
                 typedArray.recycle();
             }
+        } else {
+            //Apply HeaderStyle attributes
+            headerStyle.setBgColor(Color.WHITE);
+            headerStyle.setBgResID(R.drawable.calendar_gradient);
+
+            //Apply header MonthName attributes
+            int[] attrIds = new int[]{
+                    android.R.attr.textColor,
+                    android.R.attr.textSize,
+                    android.R.attr.typeface,
+                    android.R.attr.textStyle,
+                    android.R.attr.gravity
+            };
+            TypedArray textAppearance = context.getTheme().obtainStyledAttributes(R.style.CalendarView_MonthNameTextAppearance, attrIds);
+            for (int i = 0; i < attrIds.length; i++) {
+                switch (i) {
+                    case 0:
+                        headerStyle.setMonthNameTextColor(textAppearance.getColor(i, ContextCompat.getColor(context, R.color.calendar_month_name)));
+                        break;
+                    case 1:
+                        headerStyle.setMonthNameTextSize(textAppearance.getDimensionPixelSize(i, context.getResources().getDimensionPixelSize(R.dimen.month_text_size)));
+                        break;
+                    case 2:
+                        headerStyle.setMonthNameTextTypeface(textAppearance.getInt(i, Typeface.MONOSPACE.getStyle()));
+                        break;
+                    case 3:
+                        headerStyle.setMonthNameTextStyle(textAppearance.getInt(i, Typeface.NORMAL));
+                        break;
+                    case 4:
+                        headerStyle.setMonthNameTextGravity(textAppearance.getInt(i, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL));
+                        break;
+                }
+                textAppearance.recycle();
+            }
+
+            //Apply header MonthDayName attributes
+            attrIds = new int[]{
+                    android.R.attr.textColor,
+                    android.R.attr.textSize,
+                    android.R.attr.typeface,
+                    android.R.attr.textStyle,
+                    android.R.attr.gravity,
+                    android.R.attr.textAllCaps
+            };
+            textAppearance = context.getTheme().obtainStyledAttributes(R.style.CalendarView_MonthDayNameTextAppearance, attrIds);
+            for (int i = 0; i < attrIds.length; i++) {
+                switch (i) {
+                    case 0:
+                        headerStyle.setDayNameTextColor(textAppearance.getColor(i, ContextCompat.getColor(context, R.color.calendar_days_name)));
+                        break;
+                    case 1:
+                        headerStyle.setDayNameTextSize(textAppearance.getDimensionPixelSize(i, context.getResources().getDimensionPixelSize(R.dimen.week_day_text_size)));
+                        break;
+                    case 2:
+                        headerStyle.setDayNameTextTypeface(textAppearance.getInt(i, Typeface.MONOSPACE.getStyle()));
+                        break;
+                    case 3:
+                        headerStyle.setDayNameTextStyle(textAppearance.getInt(i, Typeface.NORMAL));
+                        break;
+                    case 4:
+                        headerStyle.setDayNameTextGravity(textAppearance.getInt(i, Gravity.CENTER));
+                        break;
+                    case 5:
+                        headerStyle.setDayNameTextAllCaps(textAppearance.getBoolean(i, true));
+                        break;
+                }
+            }
+            textAppearance.recycle();
+
+            //Apply WeekStyle attributes
+            weekStyle.setBgColor(Color.WHITE);
+
+            //Apply WeekDay attributes
+            weekDayStyle.setBgColorActive(Color.WHITE);
+            weekDayStyle.setBgColorInactive(Color.WHITE);
+            weekDayStyle.setBgColorInterval(ContextCompat.getColor(context, R.color.calendar_background));
+            weekDayStyle.setBgResource(android.R.color.transparent);
+            //Apply WeekDay text appearance
+            attrIds = new int[]{
+                    android.R.attr.textColor,
+                    android.R.attr.textSize,
+                    android.R.attr.typeface,
+                    android.R.attr.textStyle,
+                    android.R.attr.gravity,
+                    android.R.attr.textAllCaps
+            };
+            textAppearance = context.getTheme().obtainStyledAttributes(R.style.CalendarView_WeekDayTextAppearance, attrIds);
+            for (int i = 0; i < attrIds.length; i++) {
+                switch (i) {
+                    case 0:
+                        weekDayStyle.setTextColorActive(textAppearance.getColor(i, ContextCompat.getColor(context, R.color.calendar_numbers_chosen)));
+                        break;
+                    case 1:
+                        weekDayStyle.setTextSize(textAppearance.getDimensionPixelSize(i, context.getResources().getDimensionPixelSize(R.dimen.date_text_size)));
+                        break;
+                    case 2:
+                        weekDayStyle.setTextTypeface(textAppearance.getInt(i, Typeface.MONOSPACE.getStyle()));
+                        break;
+                    case 3:
+                        weekDayStyle.setTextStyle(textAppearance.getInt(i, Typeface.NORMAL));
+                        break;
+                    case 4:
+                        weekDayStyle.setTextGravity(textAppearance.getInt(i, Gravity.CENTER));
+                        break;
+                    case 5:
+                        weekDayStyle.setTextAllCaps(textAppearance.getBoolean(i, true));
+                        break;
+                }
+            }
+            textAppearance.recycle();
+            weekDayStyle.setTextColorInactive(ContextCompat.getColor(context, R.color.calendar_numbers_inactive));
+
+            //Apply WeekDayOrigin attributes
+            weekDayOriginStyle.setBgColorActive(weekDayStyle.bgColorActive);
+            weekDayOriginStyle.setBgColorInactive(weekDayStyle.bgColorInactive);
+            weekDayOriginStyle.setBgColorInterval(weekDayStyle.bgColorInterval);
+            weekDayOriginStyle.setBgResource(android.R.color.holo_blue_bright);
+            //Apply WeekDay text appearance
+            attrIds = new int[]{
+                    android.R.attr.textColor,
+                    android.R.attr.textSize,
+                    android.R.attr.typeface,
+                    android.R.attr.textStyle,
+                    android.R.attr.gravity,
+                    android.R.attr.textAllCaps
+            };
+            textAppearance = context.getTheme().obtainStyledAttributes(R.style.CalendarView_OriginTextAppearance, attrIds);
+            for (int i = 0; i < attrIds.length; i++) {
+                switch (i) {
+                    case 0:
+                        weekDayOriginStyle.setTextColorActive(textAppearance.getColor(i, ContextCompat.getColor(context, R.color.calendar_numbers_chosen)));
+                        break;
+                    case 1:
+                        weekDayOriginStyle.setTextSize(textAppearance.getDimensionPixelSize(i, context.getResources().getDimensionPixelSize(R.dimen.date_text_size)));
+                        break;
+                    case 2:
+                        weekDayOriginStyle.setTextTypeface(textAppearance.getInt(i, Typeface.MONOSPACE.getStyle()));
+                        break;
+                    case 3:
+                        weekDayOriginStyle.setTextStyle(textAppearance.getInt(i, Typeface.NORMAL));
+                        break;
+                    case 4:
+                        weekDayOriginStyle.setTextGravity(textAppearance.getInt(i, Gravity.CENTER));
+                        break;
+                    case 5:
+                        weekDayOriginStyle.setTextAllCaps(textAppearance.getBoolean(i, true));
+                        break;
+                }
+            }
+            textAppearance.recycle();
+            weekDayStyle.setTextColorInactive(weekDayStyle.textColorInactive);
+
+            //Apply WeekDayDestination attributes
+            weekDayDestinationStyle.setBgColorActive(weekDayStyle.bgColorActive);
+            weekDayDestinationStyle.setBgColorInactive(weekDayStyle.bgColorInactive);
+            weekDayDestinationStyle.setBgColorInterval(weekDayStyle.bgColorInterval);
+            weekDayDestinationStyle.setBgResource(android.R.color.holo_green_light);
+            //Apply WeekDay text appearance
+            attrIds = new int[]{
+                    android.R.attr.textColor,
+                    android.R.attr.textSize,
+                    android.R.attr.typeface,
+                    android.R.attr.textStyle,
+                    android.R.attr.gravity,
+                    android.R.attr.textAllCaps
+            };
+            textAppearance = context.getTheme().obtainStyledAttributes(R.style.CalendarView_DestinationTextAppearance, attrIds);
+            for (int i = 0; i < attrIds.length; i++) {
+                switch (i) {
+                    case 0:
+                        weekDayDestinationStyle.setTextColorActive(textAppearance.getColor(i, ContextCompat.getColor(context, R.color.calendar_numbers_chosen)));
+                        break;
+                    case 1:
+                        weekDayDestinationStyle.setTextSize(textAppearance.getDimensionPixelSize(i, context.getResources().getDimensionPixelSize(R.dimen.date_text_size)));
+                        break;
+                    case 2:
+                        weekDayDestinationStyle.setTextTypeface(textAppearance.getInt(i, Typeface.MONOSPACE.getStyle()));
+                        break;
+                    case 3:
+                        weekDayDestinationStyle.setTextStyle(textAppearance.getInt(i, Typeface.NORMAL));
+                        break;
+                    case 4:
+                        weekDayDestinationStyle.setTextGravity(textAppearance.getInt(i, Gravity.CENTER));
+                        break;
+                    case 5:
+                        weekDayDestinationStyle.setTextAllCaps(textAppearance.getBoolean(i, true));
+                        break;
+                }
+            }
+            textAppearance.recycle();
+            weekDayDestinationStyle.setTextColorInactive(weekDayStyle.textColorInactive);
+
+            //Apply Today attributes
+            todayStyle.setBgColorActive(weekDayStyle.bgColorActive);
+            todayStyle.setBgColorInactive(weekDayStyle.bgColorInactive);
+            todayStyle.setBgColorInterval(weekDayStyle.bgColorInterval);
+            todayStyle.setBgResource(weekDayStyle.bgResource);
+            //Apply WeekDay text appearance
+            attrIds = new int[]{
+                    android.R.attr.textColor,
+                    android.R.attr.textSize,
+                    android.R.attr.typeface,
+                    android.R.attr.textStyle,
+                    android.R.attr.gravity,
+                    android.R.attr.textAllCaps
+            };
+            textAppearance = context.getTheme().obtainStyledAttributes(R.style.CalendarView_TodayTextAppearance, attrIds);
+            for (int i = 0; i < attrIds.length; i++) {
+                switch (i) {
+                    case 0:
+                        todayStyle.setTextColorActive(textAppearance.getColor(i, ContextCompat.getColor(context, R.color.calendar_numbers_chosen)));
+                        break;
+                    case 1:
+                        todayStyle.setTextSize(textAppearance.getDimensionPixelSize(i, context.getResources().getDimensionPixelSize(R.dimen.date_text_size)));
+                        break;
+                    case 2:
+                        todayStyle.setTextTypeface(textAppearance.getInt(i, Typeface.MONOSPACE.getStyle()));
+                        break;
+                    case 3:
+                        todayStyle.setTextStyle(textAppearance.getInt(i, Typeface.NORMAL));
+                        break;
+                    case 4:
+                        todayStyle.setTextGravity(textAppearance.getInt(i, Gravity.CENTER));
+                        break;
+                    case 5:
+                        todayStyle.setTextAllCaps(textAppearance.getBoolean(i, true));
+                        break;
+                }
+            }
+            textAppearance.recycle();
+            todayStyle.setTextColorInactive(weekDayStyle.textColorInactive);
+
+            mAdapter.setBothDatesBgResource(android.R.color.holo_blue_dark);
+            mAdapter.setTodayLabelText(getResources().getString(R.string.label_today));
         }
         setHeaderStyle(headerStyle);
         setWeekDayDestinationStyle(weekDayDestinationStyle);

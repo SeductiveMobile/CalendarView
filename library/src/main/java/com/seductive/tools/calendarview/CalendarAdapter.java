@@ -220,7 +220,6 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         parent.setBackgroundResource(bothDatesBgResource);
         parent.setTag(tag);
         parent.setOnClickListener(listener);
-        tv.setVisibility(View.GONE);
     }
 
     private void setItemToday(FrameLayout parent, int dayPos, ViewHolder holder, TextView tv, int day) {
@@ -319,7 +318,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     }
 
     @SuppressWarnings("all")
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         TextView monthName;
         TextView monItem, tueItem, wenItem, thuItem, friItem, satItem, sunItem;
@@ -367,42 +366,49 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
                 monItem = (TextView) itemView.findViewById(R.id.mon);
                 applyDayStyle(monItem, weekDayDestinationStyle, true);
                 monItem.setOnClickListener(this);
+                monItem.setOnLongClickListener(this);
                 dayItems.add(monItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.mon_parent));
 
                 tueItem = (TextView) itemView.findViewById(R.id.tue);
                 applyDayStyle(tueItem, weekDayDestinationStyle, true);
                 tueItem.setOnClickListener(this);
+                tueItem.setOnLongClickListener(this);
                 dayItems.add(tueItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.tue_parent));
 
                 wenItem = (TextView) itemView.findViewById(R.id.wen);
                 applyDayStyle(wenItem, weekDayDestinationStyle, true);
                 wenItem.setOnClickListener(this);
+                wenItem.setOnLongClickListener(this);
                 dayItems.add(wenItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.wen_parent));
 
                 thuItem = (TextView) itemView.findViewById(R.id.thu);
                 applyDayStyle(thuItem, weekDayDestinationStyle, true);
                 thuItem.setOnClickListener(this);
+                thuItem.setOnLongClickListener(this);
                 dayItems.add(thuItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.thu_parent));
 
                 friItem = (TextView) itemView.findViewById(R.id.fri);
                 applyDayStyle(friItem, weekDayDestinationStyle, true);
                 friItem.setOnClickListener(this);
+                friItem.setOnLongClickListener(this);
                 dayItems.add(friItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.fri_parent));
 
                 satItem = (TextView) itemView.findViewById(R.id.sat);
                 applyDayStyle(satItem, weekDayDestinationStyle, true);
                 satItem.setOnClickListener(this);
+                satItem.setOnLongClickListener(this);
                 dayItems.add(satItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.sat_parent));
 
                 sunItem = (TextView) itemView.findViewById(R.id.sun);
                 applyDayStyle(sunItem, weekDayDestinationStyle, true);
                 sunItem.setOnClickListener(this);
+                sunItem.setOnLongClickListener(this);
                 dayItems.add(sunItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.sun_parent));
                 for (FrameLayout parent : parentsList){
@@ -422,6 +428,15 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         public void clearAnimation()
         {
             itemView.clearAnimation();
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (view.getTag() != null && listener != null) {
+                listener.onDateClick((DateTime) view.getTag());
+                return true;
+            }
+            return false;
         }
     }
 
@@ -457,5 +472,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
 
     public interface DateClickListener {
         void onDateClick(DateTime date);
+
+        void onDateLongClick(DateTime date);
     }
 }
