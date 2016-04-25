@@ -2,6 +2,8 @@
 
 CalendarView is a RecycleView based library.
 
+![Simple usage][sc_gif]
+
 # Import
 
 Currently only the clone setup is available. The gradle build setup is in progress.
@@ -136,3 +138,4 @@ For each UI element there is a simple class with setters:
 [wds]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/library/src/main/java/com/seductive/tools/calendarview/WeekDayStyle.java>
 [ws]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/library/src/main/java/com/seductive/tools/calendarview/WeekItemStyle.java>
 [hs]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/library/src/main/java/com/seductive/tools/calendarview/HeaderStyle.java>
+[sc_gif]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/data/simple_calendar.gif>
