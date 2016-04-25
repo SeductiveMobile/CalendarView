@@ -12,9 +12,13 @@ You can check the "sample" module to check common usage.
 
 # Requirements
 
+SDK:
 ```sh
     minSdkVersion 15
-    classpath 'com.android.tools.build:gradle:2.0.0'
+```
+Gradle:
+```sh
+classpath 'com.android.tools.build:gradle:2.0.0'
 ```
 
 # Features:
