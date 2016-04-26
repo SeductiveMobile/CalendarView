@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.seductive.tools.calendarview.CalendarType;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_calendar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(CalendarActivity.createIntent(MainActivity.this, CalendarActivity.DateType.SINGLE));
+                startActivity(CalendarActivity.createIntent(MainActivity.this, CalendarType.SingleDate));
             }
         });
     }

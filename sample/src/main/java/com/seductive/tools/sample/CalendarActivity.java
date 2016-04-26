@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.seductive.tools.calendarview.CalendarAdapter;
+import com.seductive.tools.calendarview.CalendarType;
 import com.seductive.tools.calendarview.CalendarUtils;
 import com.seductive.tools.calendarview.CalendarView;
 
@@ -20,23 +21,19 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private static final String DATE_DESTINATION = "date_destination";
     private static final String DATE_TYPE = "date_type";
 
-    public enum DateType {
-        SINGLE, PERIOD
-    }
-
-    public static Intent createIntent(Context context, DateType type){
+    public static Intent createIntent(Context context, CalendarType type){
         return createIntent(context, null, null, type);
     }
 
     public static Intent createIntent(Context context, DateTime dateOrigin){
-        return createIntent(context, dateOrigin, null, DateType.SINGLE);
+        return createIntent(context, dateOrigin, null, CalendarType.SingleDate);
     }
 
     public static Intent createIntent(Context context, DateTime dateOrigin, DateTime dateDestination){
-        return createIntent(context, dateOrigin, dateDestination, DateType.PERIOD);
+        return createIntent(context, dateOrigin, dateDestination, CalendarType.Period);
     }
 
-    public static Intent createIntent(Context context, DateTime dateOrigin, DateTime dateDestination, DateType type){
+    public static Intent createIntent(Context context, DateTime dateOrigin, DateTime dateDestination, CalendarType type){
         Intent intent = new Intent(context, CalendarActivity.class);
         if(dateOrigin != null)
             intent.putExtra(DATE_ORIGIN, dateOrigin);
@@ -46,8 +43,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         return intent;
     }
 
-    public static DateType readDateType(Intent resultIntent){
-        return DateType.values()[resultIntent.getIntExtra(DATE_TYPE, DateType.SINGLE.ordinal())];
+    public static CalendarType readDateType(Intent resultIntent){
+        return CalendarType.values()[resultIntent.getIntExtra(DATE_TYPE, CalendarType.SingleDate.ordinal())];
     }
 
     public static DateTime readDate(Intent resultIntent){
@@ -71,7 +68,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     private DateTime dateOrigin;
     private DateTime dateDestination;
-    private DateType dateType;
+    private CalendarType dateType;
     private CalendarView calendarView;
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -96,7 +93,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
                 dateOrigin = (DateTime) extras.getSerializable(DATE_ORIGIN);
             if(extras.containsKey(DATE_DESTINATION))
                 dateDestination = (DateTime) extras.getSerializable(DATE_DESTINATION);
-            dateType = DateType.values()[extras.getInt(DATE_TYPE, DateType.PERIOD.ordinal())];
+            dateType = CalendarType.values()[extras.getInt(DATE_TYPE, CalendarType.Period.ordinal())];
         }
         initUIViews();
     }
@@ -119,14 +116,14 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     @Override
     public void onDateClick(DateTime date) {
         switch (dateType){
-            case SINGLE:
+            case SingleDate:
                 dateOrigin = date;
-                calendarView.setDates(date, null);
                 break;
-            case PERIOD:
+            case Period:
                 if(dateOrigin != null){
                     dateOrigin = date;
                 } else {
+                    dateDestination = date;
                 }
                 break;
         }

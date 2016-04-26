@@ -30,6 +30,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     private DateClickListener listener;
     private List<WeekItem> items = new ArrayList<>();
 
+    private CalendarType calendarType = CalendarType.SingleDate;
     private HeaderStyle headerStyle;
     private WeekStyle weekStyle;
     private WeekDayStyle weekDayStyle;
@@ -39,14 +40,21 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     private int bothDatesBgResource = android.R.color.holo_blue_dark;
     private int rowAnimation = NONE_VALUE;
     private String[] monthNames;
-    private DateTime dateTo;
-    private DateTime dateBack;
+    private int dateOriginPosition = NONE_VALUE;
+    private int dateDestinationPosition = NONE_VALUE;
+    private DateTime dateOrigin;
+    private DateTime dateDestination;
     private TextView todayLabel;
     private String todayLabelText;
 
     public CalendarAdapter(Context context) {
         this.context = context;
         this.monthNames = context.getResources().getStringArray(R.array.months_names);
+    }
+
+    public CalendarAdapter setCalendarType(CalendarType calendarType) {
+        this.calendarType = calendarType;
+        return this;
     }
 
     public CalendarAdapter setRowAnimation(int rowAnimation) {
@@ -124,8 +132,8 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     }
 
     public void setDates(DateTime dateTo, DateTime dateBack) {
-        this.dateTo = dateTo != null ? new DateTime().withDate(dateTo.toLocalDate()) : null;
-        this.dateBack = dateBack != null ? new DateTime().withDate(dateBack.toLocalDate()) : null;
+        this.dateOrigin = dateTo != null ? new DateTime().withDate(dateTo.toLocalDate()) : null;
+        this.dateDestination = dateBack != null ? new DateTime().withDate(dateBack.toLocalDate()) : null;
         notifyDataSetChanged();
     }
 
@@ -179,11 +187,11 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
             clearCellState(holder.parentsList.get(i));
             DateTime timeToSet = firstDayWeek.plusDays(i);
             if (timeToSet.getMonthOfYear() == month && timeToSet.getYear() == year) {
-                if (dateTo != null && dateBack != null && CalendarUtils.datesEquals(dateTo, dateBack) && CalendarUtils.datesEquals(timeToSet, dateTo)) {
+                if (dateOrigin != null && dateDestination != null && CalendarUtils.datesEquals(dateOrigin, dateDestination) && CalendarUtils.datesEquals(timeToSet, dateOrigin)) {
                     setItemBothDates(holder, timeToSet, holder.parentsList.get(i), holder.dayItems.get(i));
-                } else if (dateTo != null && CalendarUtils.datesEquals(dateTo, timeToSet)) {
+                } else if (dateOrigin != null && CalendarUtils.datesEquals(dateOrigin, timeToSet)) {
                     setItemOrigin(holder, timeToSet, holder.parentsList.get(i), holder.dayItems.get(i));
-                } else if (dateBack != null && CalendarUtils.datesEquals(dateBack, timeToSet)) {
+                } else if (dateDestination != null && CalendarUtils.datesEquals(dateDestination, timeToSet)) {
                     setItemDestination(holder, timeToSet, holder.parentsList.get(i), holder.dayItems.get(i));
                 } else {
                     if (CalendarUtils.datesEquals(timeToSet, today)) {
@@ -203,6 +211,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     }
 
     private void setItemOrigin(View.OnClickListener listener, DateTime tag, FrameLayout parent, TextView tv) {
+        tv.setText(String.valueOf(tag.getDayOfMonth()));
         parent.setBackgroundResource(weekDayOriginStyle.bgResource);
         parent.setTag(tag);
         parent.setOnClickListener(listener);
@@ -210,6 +219,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     }
 
     private void setItemDestination(View.OnClickListener listener, DateTime tag, FrameLayout parent, TextView tv) {
+        tv.setText(String.valueOf(tag.getDayOfMonth()));
         parent.setBackgroundResource(weekDayDestinationStyle.bgResource);
         parent.setTag(tag);
         parent.setOnClickListener(listener);
@@ -275,8 +285,8 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
 
         applyDayStyle(tv, weekDayStyle, true);
 
-        if (dateTo != null && dateBack != null
-                && day.compareTo(dateTo) > 0 && day.compareTo(dateBack) < 0) {
+        if (dateOrigin != null && dateDestination != null
+                && day.compareTo(dateOrigin) > 0 && day.compareTo(dateDestination) < 0) {
             holder.parentsList.get(dayPos).setBackgroundColor(weekDayStyle.bgColorInterval);
         } else {
             holder.parentsList.get(dayPos).setBackgroundColor(weekDayStyle.bgColorActive);
@@ -421,7 +431,9 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         @Override
         public void onClick(View view) {
             if (view.getTag() != null && listener != null) {
-                listener.onDateClick((DateTime) view.getTag());
+                DateTime date = (DateTime) view.getTag();
+                handleDateClick(date, getAdapterPosition());
+                listener.onDateClick(date);
             }
         }
 
@@ -437,6 +449,22 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
                 return true;
             }
             return false;
+        }
+    }
+
+    private void handleDateClick(DateTime date, int position){
+        switch (calendarType){
+            case SingleDate:
+                dateOrigin = date;
+                if(dateOriginPosition != NONE_VALUE && dateOriginPosition != position){
+                    notifyItemChanged(dateOriginPosition);
+                }
+                dateOriginPosition = position;
+                notifyItemChanged(position);
+                break;
+            case Period:
+
+                break;
         }
     }
 

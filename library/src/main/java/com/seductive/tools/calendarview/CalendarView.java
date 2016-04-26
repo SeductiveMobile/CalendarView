@@ -53,6 +53,10 @@ public class CalendarView extends RecyclerView {
         mAdapter.notifyDataSetChanged();
     }
 
+    public void setCalendarType(CalendarType calendarType) {
+        this.mAdapter.setCalendarType(calendarType);
+    }
+
     public void setWeekAnimation(@AnimRes int animation) {
         mAdapter.setRowAnimation(animation);
     }
@@ -210,10 +214,16 @@ public class CalendarView extends RecyclerView {
         WeekDayStyle todayStyle = new WeekDayStyle();
         WeekDayStyle weekDayOriginStyle = new WeekDayStyle();
         WeekDayStyle weekDayDestinationStyle = new WeekDayStyle();
+        CalendarType calendarType = CalendarType.SingleDate;
         if (attributes != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(attributes, R.styleable.CalendarView, 0, 0);
 
             try {
+                if (typedArray.hasValue(R.styleable.CalendarView_type)) {
+                    int type = typedArray.getInt(R.styleable.CalendarView_type, CalendarType.SingleDate.ordinal());
+                    calendarType = CalendarType.values()[type];
+                }
+
                 //Apply HeaderStyle attributes
                 headerStyle.setBgColor(typedArray.getColor(R.styleable.CalendarView_Header_bgColor, Color.WHITE));
                 headerStyle.setBgResID(typedArray.getResourceId(R.styleable.CalendarView_Header_bgResID, R.drawable.calendar_gradient));
@@ -721,6 +731,7 @@ public class CalendarView extends RecyclerView {
             mAdapter.setBothDatesBgResource(android.R.color.holo_blue_dark);
             mAdapter.setTodayLabelText(getResources().getString(R.string.label_today));
         }
+        setCalendarType(calendarType);
         setHeaderStyle(headerStyle);
         setWeekDayDestinationStyle(weekDayDestinationStyle);
         setWeekDayOriginStyle(weekDayOriginStyle);
