@@ -25,6 +25,10 @@ classpath 'com.android.tools.build:gradle:2.0.0'
 
 # Features:
 
+### Single selection mode
+
+![Single selection][ss_gif]
+
 ### Set calendar period in tmonths
 
 ```sh
@@ -139,3 +143,4 @@ For each UI element there is a simple class with setters:
 [ws]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/library/src/main/java/com/seductive/tools/calendarview/WeekItemStyle.java>
 [hs]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/library/src/main/java/com/seductive/tools/calendarview/HeaderStyle.java>
 [sc_gif]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/data/simple_calendar.gif>
+[ss_gif]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/data/calendar_single_date.gif>
