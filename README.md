@@ -27,6 +27,15 @@ classpath 'com.android.tools.build:gradle:2.0.0'
 
 ### Single selection mode
 
+```sh
+    calendarViewInstance.setCalendarType(CalendarType calendarType);
+```
+
+
+```sh
+    app:app:type="single/period"
+```
+
 ![Single selection][ss_gif]
 
 ### Set calendar period in tmonths
