@@ -20,7 +20,7 @@ SDK:
 ```
 Gradle:
 ```sh
-classpath 'com.android.tools.build:gradle:2.0.0'
+classpath 'com.android.tools.build:gradle:2.1.0'
 ```
 
 # Features:
