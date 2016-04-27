@@ -28,15 +28,28 @@ classpath 'com.android.tools.build:gradle:2.1.0'
 ### Single selection mode
 
 ```sh
-    calendarViewInstance.setCalendarType(CalendarType calendarType);
+    calendarViewInstance.setCalendarType(CalendarType.SINGLE_DATE);
 ```
 
 
 ```sh
-    app:app:type="single/period"
+    app:app:type="single"
 ```
 
 ![Single selection][ss_gif]
+
+### Period selection mode
+
+```sh
+    calendarViewInstance.setCalendarType(CalendarType.PERIOD);
+```
+
+
+```sh
+    app:app:type="period"
+```
+
+![Period selection][ps_gif]
 
 ### Set calendar period in tmonths
 
@@ -153,3 +166,4 @@ For each UI element there is a simple class with setters:
 [hs]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/library/src/main/java/com/seductive/tools/calendarview/HeaderStyle.java>
 [sc_gif]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/data/simple_calendar.gif>
 [ss_gif]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/data/calendar_single_date.gif>
+[ps_gif]: <https://github.com/SeductiveMobile/CalendarView/blob/develop/data/calendar_period_date.gif>
