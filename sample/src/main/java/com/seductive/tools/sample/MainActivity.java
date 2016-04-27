@@ -12,10 +12,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btn_calendar).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_calendar_single).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(CalendarActivity.createIntent(MainActivity.this, CalendarType.SingleDate));
+                startActivity(CalendarActivity.createIntent(MainActivity.this, CalendarType.SINGLE_DATE));
+            }
+        });
+        findViewById(R.id.btn_calendar_period).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(CalendarActivity.createIntent(MainActivity.this, CalendarType.PERIOD));
             }
         });
     }

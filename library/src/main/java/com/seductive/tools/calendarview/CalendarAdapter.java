@@ -30,7 +30,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     private DateClickListener listener;
     private List<WeekItem> items = new ArrayList<>();
 
-    private CalendarType calendarType = CalendarType.SingleDate;
+    private CalendarType calendarType = CalendarType.SINGLE_DATE;
     private HeaderStyle headerStyle;
     private WeekStyle weekStyle;
     private WeekDayStyle weekDayStyle;
@@ -126,7 +126,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         return weekDayDestinationStyle;
     }
 
-    public void addWeekItem(WeekItem weekItem){
+    public void addWeekItem(WeekItem weekItem) {
         this.items.add(weekItem);
         notifyItemInserted(items.size() - 1);
     }
@@ -163,6 +163,14 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
             }
         }
         setRowAnimation(holder.itemView, position);
+    }
+
+    protected DateTime getDateOrigin() {
+        return dateOrigin;
+    }
+
+    protected DateTime getDateDestination() {
+        return dateDestination;
     }
 
     protected CalendarAdapter setListener(DateClickListener listener) {
@@ -247,8 +255,8 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
             params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
             todayLabel.setLayoutParams(params);
         }
-        if(todayLabel.getParent() != null)
-            ((ViewGroup)todayLabel.getParent()).removeView(todayLabel);
+        if (todayLabel.getParent() != null)
+            ((ViewGroup) todayLabel.getParent()).removeView(todayLabel);
         parent.addView(todayLabel);
         parent.bringChildToFront(todayLabel);
 
@@ -261,7 +269,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     }
 
     private void clearCellState(FrameLayout parent) {
-        if(parent.getChildCount() > 1)
+        if (parent.getChildCount() > 1)
             parent.removeView(todayLabel);
         parent.setBackgroundResource(weekDayStyle.bgResource);
         parent.setOnClickListener(null);
@@ -293,19 +301,19 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
         }
     }
 
-    private void applyDayStyle(TextView tv, WeekDayStyle style, boolean active){
+    private void applyDayStyle(TextView tv, WeekDayStyle style, boolean active) {
         tv.setGravity(style.textGravity);
         tv.setTypeface(Typeface.defaultFromStyle(style.textTypeface), style.textStyle);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, style.textSize);
         tv.setAllCaps(style.textAllCaps == 1);
-        if(active){
+        if (active) {
             tv.setTextColor(style.textColorActive);
         } else {
             tv.setTextColor(style.textColorInactive);
         }
     }
 
-    private void applyHeaderStyle(TextView textView, HeaderStyle style){
+    private void applyHeaderStyle(TextView textView, HeaderStyle style) {
         textView.setTextColor(style.dayNameTextColor);
         textView.setGravity(style.dayNameTextGravity);
         textView.setTypeface(Typeface.defaultFromStyle(style.dayNameTextTypeface), style.dayNameTextStyle);
@@ -421,7 +429,7 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
                 sunItem.setOnLongClickListener(this);
                 dayItems.add(sunItem);
                 parentsList.add((FrameLayout) itemView.findViewById(R.id.sun_parent));
-                for (FrameLayout parent : parentsList){
+                for (FrameLayout parent : parentsList) {
                     parent.setBackgroundColor(weekDayStyle.bgColorActive);
                     parent.setBackgroundResource(weekDayStyle.bgResource);
                 }
@@ -437,33 +445,71 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
             }
         }
 
-        public void clearAnimation()
-        {
+        public void clearAnimation() {
             itemView.clearAnimation();
         }
 
         @Override
         public boolean onLongClick(View view) {
             if (view.getTag() != null && listener != null) {
-                listener.onDateClick((DateTime) view.getTag());
+                listener.onDateLongClick((DateTime) view.getTag());
                 return true;
             }
             return false;
         }
     }
 
-    private void handleDateClick(DateTime date, int position){
-        switch (calendarType){
-            case SingleDate:
+    private void handleDateClick(DateTime date, int position) {
+        switch (calendarType) {
+            case SINGLE_DATE:
                 dateOrigin = date;
-                if(dateOriginPosition != NONE_VALUE && dateOriginPosition != position){
+                if (dateOriginPosition != NONE_VALUE && dateOriginPosition != position) {
                     notifyItemChanged(dateOriginPosition);
                 }
                 dateOriginPosition = position;
                 notifyItemChanged(position);
                 break;
-            case Period:
-
+            case PERIOD:
+                if (dateOrigin == null) {
+                    dateOrigin = date;
+                    dateOriginPosition = position;
+                    notifyItemChanged(position);
+                } else {
+                    switch (dateOrigin.compareTo(date)) {
+                        case -1:    //Less
+                            if (dateDestination == null) {
+                                dateDestination = date;
+                                dateDestinationPosition = position;
+                                notifyItemRangeChanged(dateOriginPosition, dateDestinationPosition);
+                            } else {
+                                switch (dateDestination.compareTo(date)) {
+                                    case -1:
+                                        int maxPosition = Math.max(position, dateDestinationPosition);
+                                        dateDestination = date;
+                                        dateDestinationPosition = position;
+                                        notifyItemRangeChanged(dateOriginPosition, maxPosition);
+                                        break;
+                                    case 1:
+                                        dateOrigin = date;
+                                        dateDestination = null;
+                                        notifyItemRangeChanged(dateOriginPosition, dateDestinationPosition);
+                                        dateOriginPosition = position;
+                                        dateDestinationPosition = -1;
+                                        break;
+                                }
+                            }
+                            break;
+                        case 0:     //Equals
+                            break;
+                        default:    //Greater
+                            if (dateOriginPosition != position)
+                                notifyItemChanged(dateOriginPosition);
+                            dateOrigin = date;
+                            dateOriginPosition = position;
+                            notifyItemChanged(position);
+                            break;
+                    }
+                }
                 break;
         }
     }
@@ -479,17 +525,16 @@ public final class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.
     }
 
     private int lastPosition = -1;
+
     /**
      * Here is the key method to apply the animation
      */
-    private void setRowAnimation(View viewToAnimate, int position)
-    {
-        if(rowAnimation == NONE_VALUE){
+    private void setRowAnimation(View viewToAnimate, int position) {
+        if (rowAnimation == NONE_VALUE) {
             return;
         }
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, rowAnimation);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
